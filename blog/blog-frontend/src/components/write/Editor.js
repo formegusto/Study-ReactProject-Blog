@@ -62,6 +62,18 @@ const Editor = ({ title, body, onChangeField }) => {
         });
     },[onChangeField]);
 
+    // 1번 방법 : esLint의 규칙에 의한 두번째 파라미터에 넣는 배열안에 포함시킬 것을 권장
+    // const mounted = useRef(false);
+    // useEffect(() => {
+    //     if(mounted.current) return;
+    //     mounted.current = true;
+    //     quillInstance.current.root.innerHTML = body;
+    // }, [body]);
+    // 2번 방법 : disable - esLink
+    useEffect(() => {
+        quillInstance.current.root.innerHTML = body;
+    }, []); /* eslint-disable-line */
+
     const onChangeTitle = e => {
         onChangeField({ key: 'title', value: e.target.value });
     };
