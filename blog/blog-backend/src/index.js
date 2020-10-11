@@ -11,6 +11,8 @@ import serve from 'koa-static';
 import path from 'path';
 import send from 'koa-send';
 
+import cors from '@koa/cors';
+
 dotenv.config();
 
 // 비구조화 할당을 통해 process.env 내부 값에 대한 레퍼런스 만들기
@@ -26,6 +28,8 @@ mongoose
     });
 
 const app = new Koa();
+app.use(cors());
+
 const router = new Router();
 
 // 라우터 설정
@@ -42,6 +46,8 @@ app.use(router.routes()).use(router.allowedMethods());
 
 const buildDirectory = path.resolve('../../blog/blog-frontend/build');
 app.use(serve(buildDirectory));
+
+// cors 허용
 app.use(async ctx => {
   // Not Found 이고, 주소가 /api로 시작하지 않는 경우
   if(ctx.status === 404 && ctx.path.indexOf('/api') !== 0) {

@@ -10,6 +10,7 @@ import User from '../../models/user.js';
 */
 export const register = async ctx => {
     // Request Body 검증하기
+    console.log(ctx.request.body);
     const schema = Joi.object().keys({
         username: Joi.string()
             .alphanum()
